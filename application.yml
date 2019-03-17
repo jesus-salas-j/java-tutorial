@@ -2,5 +2,13 @@ spring:
   application:
     name: "Java tutorial"
 
+#server:
+#  port: 8080
+
 server:
-  port: 8080
+  port: 443
+  ssl:
+    key-store: keystore.p12
+    key-store-password: caracola30
+    keyStoreType: PKCS12
+    keyAlias: tomcat
