@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class TestController {
@@ -30,27 +29,26 @@ public class TestController {
     }
 
     @RequestMapping(value="/all", method=RequestMethod.GET)
-    public ResponseEntity all() {
-        return new ResponseEntity("Products: " + StringListFrom(products), HttpStatus.CREATED);
+    public ResponseEntity<String> all() {
+        return new ResponseEntity<String>("Products: " + StringListFrom(products), HttpStatus.CREATED);
     }
 
     @RequestMapping(value="/new", method=RequestMethod.POST)
-    public ResponseEntity createProduct(@RequestBody String product) {
+    public ResponseEntity<String> createProduct(@RequestBody String product) {
         product = formattedInputOf(product);
         products.add(product);
-        return new ResponseEntity("Products: " + StringListFrom(products), HttpStatus.CREATED);
+        return new ResponseEntity<String>("Products: " + StringListFrom(products), HttpStatus.CREATED);
     }
 
     @RequestMapping(value="/delete", method=RequestMethod.DELETE)
-    public ResponseEntity deleteProduct(@RequestBody String product) {
+    public ResponseEntity<String> deleteProduct(@RequestBody String product) {
         product = formattedInputOf(product);
         products.remove(product);
-        return new ResponseEntity("Products: " + StringListFrom(products), HttpStatus.CREATED);
+        return new ResponseEntity<String>("Products: " + StringListFrom(products), HttpStatus.CREATED);
     }
 
     private String StringListFrom(List<String> products) {
-        return products.stream()
-            .collect(Collectors.joining(" "));
+        return String.join(" ", products);
     }
 
     private String formattedInputOf(@RequestBody String product) {
