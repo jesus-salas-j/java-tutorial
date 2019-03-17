@@ -24,12 +24,12 @@ public class TestController {
         products = new ArrayList<>();
     }
 
-    @RequestMapping("/")
+    @RequestMapping(value="/", method=RequestMethod.GET)
     public String root() {
         return this.testText;
     }
 
-    @RequestMapping("/all")
+    @RequestMapping(value="/all", method=RequestMethod.GET)
     public ResponseEntity all() {
         return new ResponseEntity("Products: " + StringListFrom(products), HttpStatus.CREATED);
     }
